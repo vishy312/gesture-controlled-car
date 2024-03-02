@@ -25,16 +25,25 @@ export class AppComponent {
     filter((value) => value === 'forward' || value === 'reverse')
   );
 
-  device!: BluetoothDevice;
-  characteristic!: BluetoothRemoteGATTCharacteristic;
+  // device!: BluetoothDevice;
+  // characteristic!: BluetoothRemoteGATTCharacteristic;
 
   constructor(private _recognizer: GestureService, private _router: Router) {
     this._recognizer.gesture$
       .pipe(
-        filter((value) => value === 'stop'),
-        withLatestFrom(this.selection$)
+        filter((g) => g === 'forward' || g === 'reverse' || g === 'stop')
       )
-      .subscribe(([_, page]) => this._router.navigateByUrl(page));
+      .subscribe((gesture)=> {
+        console.log(gesture)
+      });
+
+      this._recognizer.swipe$
+      .pipe(
+        filter((d) => d === 'right' || d === 'left')
+      )
+      .subscribe((direction)=> {
+        console.log(direction)
+      });
   }
 
   get stream(): MediaStream {
@@ -48,25 +57,25 @@ export class AppComponent {
     );
   }
 
-  async connectBluetooth(){
-    try {
-      this.device = await navigator.bluetooth.requestDevice({
-        filters: []
-      });
+  // async connectBluetooth(){
+  //   try {
+  //     this.device = await navigator.bluetooth.requestDevice({
+  //       filters: []
+  //     });
 
-      const server = await this.device.gatt?.connect();
-      const service = await server?.getPrimaryService('');
-      this.characteristic = await service?.getCharacteristic('') as BluetoothRemoteGATTCharacteristic;
+  //     const server = await this.device.gatt?.connect();
+  //     const service = await server?.getPrimaryService('');
+  //     this.characteristic = await service?.getCharacteristic('') as BluetoothRemoteGATTCharacteristic;
 
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
-  async sendData(data: string){
-    if (this.characteristic) {
-      const encoder = new TextEncoder();
-      await this.characteristic.writeValue(encoder.encode(data));
-    }
-  }
+  // async sendData(data: string){
+  //   if (this.characteristic) {
+  //     const encoder = new TextEncoder();
+  //     await this.characteristic.writeValue(encoder.encode(data));
+  //   }
+  // }
 }

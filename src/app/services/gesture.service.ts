@@ -7,7 +7,7 @@ import { GE } from './fingure-gesture';
 const GestureMap = {
   noFinger: 'stop',
   victory: 'reverse',
-  finger: 'forward'
+  thumbs_up: 'forward'
 };
 
 type Gesture = 'stop' | 'reverse' | 'forward' | 'none';
@@ -94,14 +94,14 @@ export class GestureService {
     const {gestures} = GE.estimate(landmarks, 7.5);
     let gesture = null;
     for (const g of gestures) {
-      if (g.name === 'victory' || g.name === 'thumbs_up') {
+      if (g.name === 'victory' || g.name === 'thumbs_up' || g.name === 'noFinger') {
         gesture = g.name;
         break;
       }
     }
 
     if (!gesture && gestures.length) {
-      gesture = 'noFinger';
+      gesture = 'none';
     }
 
     if (this._lastGesture !== gesture) {
