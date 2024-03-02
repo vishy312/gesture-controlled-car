@@ -4,7 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatSidenavModule} from '@angular/material/sidenav'
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { WebBluetoothModule } from '@manekinekko/angular-web-bluetooth';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
     BrowserModule,
     AppRoutingModule,
     MatSidenavModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    WebBluetoothModule
   ],
   providers: [],
   bootstrap: [AppComponent]

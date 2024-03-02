@@ -25,8 +25,8 @@ export class AppComponent {
     filter((value) => value === 'forward' || value === 'reverse')
   );
 
-  // device!: BluetoothDevice;
-  // characteristic!: BluetoothRemoteGATTCharacteristic;
+  device!: BluetoothDevice;
+  characteristic!: BluetoothRemoteGATTCharacteristic;
 
   constructor(private _recognizer: GestureService, private _router: Router) {
     this._recognizer.gesture$
@@ -57,25 +57,25 @@ export class AppComponent {
     );
   }
 
-  // async connectBluetooth(){
-  //   try {
-  //     this.device = await navigator.bluetooth.requestDevice({
-  //       filters: []
-  //     });
+  async connectBluetooth(){
+    try {
+      this.device = await navigator.bluetooth.requestDevice({
+        filters: [{services: ['0000fd44-0000-1000-8000-00805f9b34fb']}]
+      });
 
-  //     const server = await this.device.gatt?.connect();
-  //     const service = await server?.getPrimaryService('');
-  //     this.characteristic = await service?.getCharacteristic('') as BluetoothRemoteGATTCharacteristic;
+      const server = await this.device.gatt?.connect();
+      const service = await server?.getPrimaryService('0000fd44-0000-1000-8000-00805f9b34fb');
+      this.characteristic = await service?.getCharacteristic('6aa50008-6352-4d57-a7b4-003a416fbb0b') as BluetoothRemoteGATTCharacteristic;
 
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  // async sendData(data: string){
-  //   if (this.characteristic) {
-  //     const encoder = new TextEncoder();
-  //     await this.characteristic.writeValue(encoder.encode(data));
-  //   }
-  // }
+  async sendData(data: string){
+    if (this.characteristic) {
+      const encoder = new TextEncoder();
+      await this.characteristic.writeValue(encoder.encode(data));
+    }
+  }
 }

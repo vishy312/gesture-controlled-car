@@ -1514,6 +1514,13 @@
   resolved "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
+"@manekinekko/angular-web-bluetooth@^17.1.0":
+  version "17.1.0"
+  resolved "https://registry.yarnpkg.com/@manekinekko/angular-web-bluetooth/-/angular-web-bluetooth-17.1.0.tgz#7861029f16904b4ee60d47a05722e53cec899f31"
+  integrity sha512-uSVBu6ONQ3vKB5jHShRRGMUVoy62YO1+fnIsCeMUkudgbVLuSXZf9nIOA8J7lAjvDGakjcr3puGcP1/evZdqQQ==
+  dependencies:
+    tslib "^2.3.0"
+
 "@material/animation@15.0.0-canary.bc9ae6c9c.0":
   version "15.0.0-canary.bc9ae6c9c.0"
   resolved "https://registry.npmjs.org/@material/animation/-/animation-15.0.0-canary.bc9ae6c9c.0.tgz"
