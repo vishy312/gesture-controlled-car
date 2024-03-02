@@ -41,7 +41,7 @@ export class GestureService {
     return this._stream;
   }
 
-  initializers(canvas: HTMLCanvasElement, video: HTMLVideoElement) {
+  initialize(canvas: any, video: any) {
     this._dimensions = [video.width, video.height];
 
     navigator.mediaDevices
