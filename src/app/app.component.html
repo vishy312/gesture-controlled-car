@@ -23,6 +23,10 @@
   <div class="gesture">{{selection$ | async}}</div>
 </section>
 
+<div>
+  <button (click)="connectBluetooth()">Connect to Bluetooth Device</button>
+  <button (click)="sendData('')">Send Data</button>
+</div>
 <!-- <button
   class="hamburger hamburger--slider"
   [class.is-active]="drawer.opened"

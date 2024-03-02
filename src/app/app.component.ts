@@ -18,14 +18,15 @@ export class AppComponent {
   @ViewChild('about') aboutLink!: ElementRef<HTMLAnchorElement>;
 
   opened$ = this._recognizer.swipe$.pipe(
-    filter((value) => value === 'left' || value === 'right'),
-    map((value) => value === 'right')
+    filter((value) => value === 'left' || value === 'right')
   );
 
   selection$ = this._recognizer.gesture$.pipe(
-    filter((value) => value === 'forward' || value === 'reverse'),
-    map((value) => (value === 'forward' ? 'home' : 'about'))
+    filter((value) => value === 'forward' || value === 'reverse')
   );
+
+  device!: BluetoothDevice;
+  characteristic!: BluetoothRemoteGATTCharacteristic;
 
   constructor(private _recognizer: GestureService, private _router: Router) {
     this._recognizer.gesture$
@@ -45,5 +46,27 @@ export class AppComponent {
       this.canvas.nativeElement,
       this.video.nativeElement
     );
+  }
+
+  async connectBluetooth(){
+    try {
+      this.device = await navigator.bluetooth.requestDevice({
+        filters: []
+      });
+
+      const server = await this.device.gatt?.connect();
+      const service = await server?.getPrimaryService('');
+      this.characteristic = await service?.getCharacteristic('') as BluetoothRemoteGATTCharacteristic;
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async sendData(data: string){
+    if (this.characteristic) {
+      const encoder = new TextEncoder();
+      await this.characteristic.writeValue(encoder.encode(data));
+    }
   }
 }
